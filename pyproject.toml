@@ -4,7 +4,7 @@ target_version = ["py37"]
 
 [tool.poetry]
 name = "weightedset"
-version = "0.1.0"
+version = "1.0.0"
 description = "Weighted set"
 readme = "README.md"
 authors = ["Gary Donovan <gazza@gazza.id.au>"]
