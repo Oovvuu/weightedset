@@ -21,3 +21,22 @@ be assigned a different (positive) numeric value.
   integers (whole numbers).
 * A weighted set is not a dictionary, because the values can only be weights,
   along with special semantics for adding duplicate keys.
+
+
+## Installation
+`weightedset` is distributed as a standard python package through
+[pypi](https://pypi.org/), so you can install it with your favourite Python
+package manager. For example:
+
+    pip install weightedset
+
+
+## Licence
+This project uses the MIT licence.
+
+
+## Credits
+Thanks to [Oovvuu](https://oovvuu.com/) for supporting this project.
+
+Primary authors:
+* [garyd203](https://github.com/garyd203)
