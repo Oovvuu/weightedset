@@ -1,0 +1,40 @@
+[tool.black]
+line-length = 88
+target_version = ["py37"]
+
+[tool.poetry]
+name = "weightedset"
+version = "0.1.0"
+description = "Weighted set"
+readme = "README.md"
+authors = ["Gary Donovan <gazza@gazza.id.au>"]
+license = "MIT"
+homepage = "https://github.com/Oovvuu/weightedset"
+repository = "https://github.com/Oovvuu/weightedset"
+documentation = "https://github.com/Oovvuu/weightedset"
+# If you update this keyword list, also update the one in github
+keywords=["weighted-set"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Topic :: Software Development :: Libraries",
+]
+packages = [
+    { include="weightedset", from="src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+black = "==19.3b0"
+
+[build-system]
+requires = ["poetry>=1.0.3"]
+build-backend = "poetry.masonry.api"
