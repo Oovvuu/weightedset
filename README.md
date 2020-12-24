@@ -31,6 +31,46 @@ package manager. For example:
     pip install weightedset
 
 
+## Usage
+
+You can add keys to the set as many times you want. Each time you add a key,
+it increases that keys weight, using a default weight of 1 if nothing is
+specified.
+
+    >>> from weightedset import WeightedSet
+    >>> labels = WeightedSet()
+    
+    >>> labels.add("foo")
+    >>> labels.add("bar", 1.5)
+    >>> labels.add("baz")
+    >>> labels.add("baz")
+    
+    >>> labels["foo"]
+    1.0
+    >>> labels["bar"]
+    1.5
+    >>> labels["baz"]
+    1.5
+
+Normal `set`-like and `dict`-like access patterns are supported where they
+make sense:
+
+    >>> labels.keys()
+    ['baz', 'bar', 'foo']
+    >>> "bar" in labels
+    True
+    >>> labels["bar"]
+    1.5
+
+The weights can be manipulated as a group:
+
+    >>> labels *= 2
+    >>> labels["bar"]
+    3.0
+    >>> labels.clamp(1.0)
+    >>> labels["bar"]
+    1.0
+
 ## Licence
 This project uses the MIT licence.
 
