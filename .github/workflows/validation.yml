@@ -19,13 +19,20 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
+    - name: Update pip
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
+    - name: Install Poetry
+      #uses: abatilo/actions-poetry@v2.1.0  # Pinned to SHA hash
+      uses: abatilo/actions-poetry@8284d202bc272a8d0597e26e1c0b4a0d0c73db93
+      with:
+        poetry-version: 1.1.4
+    - name: Install Dependencies
+      run: |
+        poetry install
     - name: Check Formatting
       run: |
-        black --check src tests
+        poetry run black --check src tests
     - name: Test
       run: |
-        pytest tests
+        poetry run pytest tests
