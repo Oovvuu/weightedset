@@ -13,7 +13,7 @@ homepage = "https://github.com/Oovvuu/weightedset"
 repository = "https://github.com/Oovvuu/weightedset"
 documentation = "https://github.com/Oovvuu/weightedset"
 # If you update this keyword list, also update the one in github
-keywords=["weighted-set"]
+keywords=["weighted-sets"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
