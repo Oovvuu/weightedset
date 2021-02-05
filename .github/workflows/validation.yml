@@ -34,5 +34,20 @@ jobs:
       run: |
         poetry run black --check src tests
     - name: Test
+      id: pytest
       run: |
-        poetry run pytest tests
+        poetry run pytest tests --junit-xml=build/test-results/pytest-main.xml
+    - name: Publish Test Report 2
+      # Don't use original broken action
+      # uses: ashley-taylor/junit-report-annotations-action@1.3  # Pinned to SHA hash
+      # uses: ashley-taylor/junit-report-annotations-action@562e0277515cae408f30ad1ea2d6dea44fc1df87
+
+      # uses: KyleAure/junit-report-annotations-action@1.5  # Pinned to SHA hash
+      uses: KyleAure/junit-report-annotations-action@76895d655157a1d21082afe5acb6101859267aaf
+      if: ${{ failure() && steps.pytest.outcome == 'failure' }}
+      with:
+        access-token: ${{ secrets.GITHUB_TOKEN }}
+        includeSummary: false
+        name: Failed Tests for Py${{ matrix.python-version }}
+        numFailures: 25
+        path: "**/build/test-results/*.xml"
