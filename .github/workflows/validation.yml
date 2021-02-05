@@ -1,0 +1,53 @@
+name: Validate & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.6", "3.7"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Update pip
+      run: |
+        python -m pip install --upgrade pip
+    - name: Install Poetry
+      #uses: abatilo/actions-poetry@v2.1.0  # Pinned to SHA hash
+      uses: abatilo/actions-poetry@8284d202bc272a8d0597e26e1c0b4a0d0c73db93
+      with:
+        poetry-version: 1.1.4
+    - name: Install Dependencies
+      run: |
+        poetry install
+    - name: Check Formatting
+      run: |
+        poetry run black --check src tests
+    - name: Test
+      id: pytest
+      run: |
+        poetry run pytest tests --junit-xml=build/test-results/pytest-main.xml
+    - name: Publish Test Report 2
+      # Don't use original broken action
+      # uses: ashley-taylor/junit-report-annotations-action@1.3  # Pinned to SHA hash
+      # uses: ashley-taylor/junit-report-annotations-action@562e0277515cae408f30ad1ea2d6dea44fc1df87
+
+      # uses: KyleAure/junit-report-annotations-action@1.5  # Pinned to SHA hash
+      uses: KyleAure/junit-report-annotations-action@76895d655157a1d21082afe5acb6101859267aaf
+      if: ${{ failure() && steps.pytest.outcome == 'failure' }}
+      with:
+        access-token: ${{ secrets.GITHUB_TOKEN }}
+        includeSummary: false
+        name: Failed Tests for Py${{ matrix.python-version }}
+        numFailures: 25
+        path: "**/build/test-results/*.xml"
