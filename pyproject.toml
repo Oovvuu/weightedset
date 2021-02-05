@@ -38,5 +38,5 @@ hypothesis = "^5.43.3"
 pytest = "^6.2.1"
 
 [build-system]
-requires = ["poetry>=1.0.3"]
+requires = ["poetry>=1.1.0"]
 build-backend = "poetry.masonry.api"
